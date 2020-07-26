@@ -1,6 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
+import Job from "../views/Job.vue";
+import Live from "../views/Live.vue";
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 
 Vue.use(VueRouter);
 
@@ -11,16 +18,31 @@ const routes = [
     component: Home
   },
   {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    redirect: "/about/job/2",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    children: [
+      {
+        path: "job/:id",
+        name: "job",
+        component: Job
+      },
+      {
+        path: "live",
+        name: "live",
+        component: Live
+      }
+    ]
   }
 ];
-
+console.log("base", process.env.BASE_URL);
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
