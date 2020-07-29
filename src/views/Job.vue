@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import * as storage from "../utils/storage";
 export default {
   data() {
     return {};
@@ -18,6 +19,7 @@ export default {
     const params = this.$route.params;
     console.log("params", params);
     console.log("route", this.$route);
+    console.log("storage", storage.getItemBySessionStorage("session"));
   }
 };
 </script>

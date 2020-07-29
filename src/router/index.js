@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
 import Job from "../views/Job.vue";
 import Live from "../views/Live.vue";
+import Storage from "../views/Storage.vue";
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
@@ -38,6 +39,11 @@ const routes = [
         path: "live",
         name: "live",
         component: Live
+      },
+      {
+        path: "storage",
+        name: "storage",
+        component: Storage
       }
     ]
   }
